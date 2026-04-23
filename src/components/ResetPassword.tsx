@@ -108,8 +108,9 @@ export default function ResetPassword() {
 
       // Redirect user to login after 2 seconds so they can log in with their new password
       setTimeout(() => {
-        window.location.href = 'http://localhost:5174';
+        window.location.href = window.location.origin;
       }, 2000);
+
     } catch (err: any) {
       const errorMsg = err.message || 'Failed to reset password. Please try again.';
       setError(errorMsg);
@@ -121,22 +122,22 @@ export default function ResetPassword() {
   // Show error state if session initialization failed
   if (!sessionReady && error) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-[#0f1117]">
-        <div className="w-full max-w-md bg-[#1a1d27] border border-[#2a2d3a] rounded-xl shadow-2xl p-8 relative overflow-hidden">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50">
+        <div className="w-full max-w-md bg-white border border-slate-200 rounded-xl shadow-2xl p-8 relative overflow-hidden">
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center">
-              <ExclamationCircleIcon className="w-8 h-8 text-red-400" />
+            <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center border border-red-100 shadow-sm">
+              <ExclamationCircleIcon className="w-8 h-8 text-red-600" />
             </div>
           </div>
 
-          <h2 className="text-2xl font-bold text-white mb-2 text-center">Reset Link Expired</h2>
-          <p className="text-[#9ca3af] text-sm text-center mb-6">
+          <h2 className="text-2xl font-bold text-slate-900 mb-2 text-center">Reset Link Expired</h2>
+          <p className="text-slate-500 text-sm text-center mb-6">
             {error}
           </p>
 
           <button
-            onClick={() => (window.location.href = 'http://localhost:5174')}
-            className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-all shadow-lg shadow-indigo-500/20"
+            onClick={() => (window.location.href = window.location.origin)}
+            className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold transition-all shadow-lg shadow-indigo-500/20"
           >
             Go back to login
           </button>
@@ -148,24 +149,24 @@ export default function ResetPassword() {
   // Show success state after password is updated
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-[#0f1117]">
-        <div className="w-full max-w-md bg-[#1a1d27] border border-[#2a2d3a] rounded-xl shadow-2xl p-8 relative overflow-hidden">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50">
+        <div className="w-full max-w-md bg-white border border-slate-200 rounded-xl shadow-2xl p-8 relative overflow-hidden">
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center">
-              <CheckCircleIcon className="w-8 h-8 text-green-400" />
+            <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center border border-green-100 shadow-sm">
+              <CheckCircleIcon className="w-8 h-8 text-green-600" />
             </div>
           </div>
 
-          <h2 className="text-2xl font-bold text-white mb-2 text-center">Password Updated!</h2>
-          <p className="text-[#9ca3af] text-sm text-center mb-2">
+          <h2 className="text-2xl font-bold text-slate-900 mb-2 text-center">Password Updated!</h2>
+          <p className="text-slate-500 text-sm text-center mb-2">
             Your password has been successfully reset.
           </p>
-          <p className="text-xs text-[#4b5563] text-center">
+          <p className="text-xs text-slate-400 text-center font-medium italic">
             Taking you back to login... Please wait.
           </p>
 
           <div className="mt-8 flex justify-center">
-            <div className="animate-spin w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full"></div>
+            <div className="animate-spin w-6 h-6 border-2 border-indigo-600 border-t-transparent rounded-full"></div>
           </div>
         </div>
       </div>
@@ -175,14 +176,14 @@ export default function ResetPassword() {
   // Show loading state while session is being initialized
   if (!sessionReady) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-[#0f1117]">
-        <div className="w-full max-w-md bg-[#1a1d27] border border-[#2a2d3a] rounded-xl shadow-2xl p-8 relative overflow-hidden">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50">
+        <div className="w-full max-w-md bg-white border border-slate-200 rounded-xl shadow-2xl p-8 relative overflow-hidden">
           <div className="text-center">
             <div className="mb-6 flex justify-center">
-              <div className="animate-spin w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full"></div>
+              <div className="animate-spin w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full"></div>
             </div>
-            <h2 className="text-2xl font-bold text-white mb-2">Verifying reset link...</h2>
-            <p className="text-[#9ca3af] text-sm">
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">Verifying reset link...</h2>
+            <p className="text-slate-500 text-sm">
               Please wait while we activate your password reset.
             </p>
           </div>
@@ -193,25 +194,25 @@ export default function ResetPassword() {
 
   // Show the password reset form
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[#0f1117]">
-      <div className="w-full max-w-md bg-[#1a1d27] border border-[#2a2d3a] rounded-xl shadow-2xl p-8 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-xl shadow-2xl p-8 relative overflow-hidden">
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold text-white mb-2">Set a new password</h2>
-          <p className="text-[#9ca3af] text-sm">
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">Set a new password</h2>
+          <p className="text-slate-500 text-sm">
             Choose a strong password for your account.
           </p>
         </div>
 
         <form onSubmit={handleResetPassword} className="space-y-4">
           {error && (
-            <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg flex items-start gap-3 mb-4">
-              <ExclamationCircleIcon className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-              <p className="text-red-400 text-sm">{error}</p>
+            <div className="p-4 bg-red-50 border border-red-100 rounded-lg flex items-start gap-3 mb-4">
+              <ExclamationCircleIcon className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+              <p className="text-red-700 text-sm">{error}</p>
             </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-[#9ca3af] mb-1">New password</label>
+            <label className="block text-sm font-medium text-slate-500 mb-1">New password</label>
             <input
               type="password"
               value={newPassword}
@@ -221,12 +222,12 @@ export default function ResetPassword() {
               }}
               placeholder="••••••••"
               disabled={loading}
-              className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2.5 text-white placeholder-[#4b5563] focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 transition-all"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 transition-all shadow-sm"
             />
 
             {newPassword && (
               <div className="mt-2 flex items-center gap-2">
-                <div className="flex-1 h-1 bg-[#2a2d3a] rounded-full overflow-hidden">
+                <div className="flex-1 h-1 bg-slate-100 rounded-full overflow-hidden">
                   <div className={`h-full transition-all duration-300 ${passwordStrength.widthClass} ${passwordStrength.colorClass}`}></div>
                 </div>
                 <span className={`text-[10px] font-bold uppercase min-w-[50px] text-right ${passwordStrength.colorClass.replace('bg-', 'text-')}`}>
@@ -237,7 +238,7 @@ export default function ResetPassword() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#9ca3af] mb-1">Confirm new password</label>
+            <label className="block text-sm font-medium text-slate-500 mb-1">Confirm new password</label>
             <input
               type="password"
               value={confirmPassword}
@@ -247,14 +248,14 @@ export default function ResetPassword() {
               }}
               placeholder="••••••••"
               disabled={loading}
-              className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2.5 text-white placeholder-[#4b5563] focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 transition-all"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 transition-all shadow-sm"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading || !newPassword || !confirmPassword}
-            className="w-full mt-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/50 text-white rounded-lg font-medium transition-all shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2"
+            className="w-full mt-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/50 text-white rounded-lg font-bold transition-all shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2"
           >
             {loading ? (
               <>
@@ -270,7 +271,7 @@ export default function ResetPassword() {
           </button>
         </form>
 
-        <p className="text-[11px] text-[#4b5563] text-center mt-6 uppercase tracking-widest font-bold">
+        <p className="text-[11px] text-slate-400 text-center mt-6 uppercase tracking-widest font-black">
           ConcernTrack Security System
         </p>
       </div>

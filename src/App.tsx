@@ -37,7 +37,7 @@ export default function App() {
 
   // Show loading spinner while checking session
   if (loading) return (
-    <div className="min-h-screen bg-[#0f1117] flex items-center justify-center">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center">
       <div className="animate-spin w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full"></div>
     </div>
   )
@@ -108,26 +108,26 @@ export default function App() {
     // Check approval status
     if (!user.isApproved) {
       return (
-        <div className="min-h-screen bg-[#0f1117] flex items-center justify-center p-6">
-          <div className="max-w-md w-full bg-[#1a1d27] border border-[#2a2d3a] rounded-2xl p-10 shadow-2xl text-center relative overflow-hidden">
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+          <div className="max-w-md w-full bg-white border border-slate-200 rounded-2xl p-10 shadow-2xl text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-amber-500"></div>
             
             <div className="w-24 h-24 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-8 ring-8 ring-amber-500/5">
               <span className="text-5xl animate-pulse">⏳</span>
             </div>
             
-            <h2 className="text-3xl font-bold text-white mb-4">Pending Approval</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Pending Approval</h2>
             <div className="mb-8">
-              <p className="text-[#9ca3af] leading-relaxed">
-                Welcome, <span className="text-white font-medium">{user.fullName}</span>.
+              <p className="text-slate-500 leading-relaxed">
+                Welcome, <span className="text-slate-900 font-medium">{user.fullName}</span>.
               </p>
-              <p className="text-[#9ca3af] leading-relaxed mt-2 text-sm">
-                Your account for the <span className="text-indigo-400 font-bold">{user.department}</span> is currently under review by the System Administrator.
+              <p className="text-slate-500 leading-relaxed mt-2 text-sm">
+                Your account for the <span className="text-indigo-600 font-bold">{user.department}</span> is currently under review by the System Administrator.
               </p>
             </div>
 
             <div className="space-y-4">
-              <div className="p-5 bg-indigo-500/5 border border-indigo-500/10 rounded-2xl text-sm text-indigo-300 flex items-start gap-3">
+              <div className="p-5 bg-indigo-50 border border-indigo-100 rounded-2xl text-sm text-indigo-600 flex items-start gap-3">
                 <span className="text-lg">ℹ️</span>
                 <p className="text-left leading-relaxed">
                   Dashboard access is restricted until your credentials are verified. You will be able to manage student concerns once approved.
@@ -136,14 +136,14 @@ export default function App() {
               
               <button
                 onClick={logout}
-                className="w-full py-4 px-6 bg-[#0f1117] border border-[#2a2d3a] hover:bg-[#1a1d27] hover:border-indigo-500/50 text-white rounded-2xl font-bold transition-all duration-300 flex items-center justify-center gap-3 group"
+                className="w-full py-4 px-6 bg-slate-50 border border-slate-200 hover:bg-slate-100 hover:border-indigo-300 text-slate-900 rounded-2xl font-bold transition-all duration-300 flex items-center justify-center gap-3 group shadow-sm"
               >
                 <span>Sign out</span>
-                <span className="text-gray-500 group-hover:text-indigo-400 transition-colors">⇥</span>
+                <span className="text-slate-400 group-hover:text-indigo-600 transition-colors">⇥</span>
               </button>
             </div>
 
-            <p className="mt-8 text-[11px] text-gray-600 uppercase tracking-widest font-bold">
+            <p className="mt-8 text-[11px] text-slate-400 uppercase tracking-widest font-bold">
               ConcernTrack Security System
             </p>
           </div>
@@ -152,22 +152,29 @@ export default function App() {
     }
 
     return (
-      <div className="min-h-screen bg-[#0f1117]">
-        <nav className="bg-[#1a1d27] border-b border-[#2a2d3a] px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 bg-indigo-600 rounded-md flex items-center justify-center text-white text-xs font-bold">C</div>
-              <span className="text-white font-semibold text-sm">ConcernTrack</span>
+      <div className="min-h-screen bg-slate-50">
+        <nav className="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between sticky top-0 z-40 backdrop-blur-md shadow-sm">
+          <div className="flex items-center gap-4 sm:gap-8 overflow-x-auto no-scrollbar">
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="w-7 h-7 bg-indigo-600 rounded-md flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-indigo-500/20">C</div>
+              <span className="text-slate-900 font-bold text-sm tracking-tight hidden xs:block">ConcernTrack</span>
             </div>
-            <span className="px-4 py-2 font-medium text-indigo-400 border-b-2 border-indigo-500 text-sm">Admin Dashboard</span>
+            <span className="px-3 sm:px-4 py-1.5 font-bold text-indigo-600 border border-indigo-200 bg-indigo-50 rounded-full text-[10px] sm:text-xs uppercase tracking-[0.2em] flex-shrink-0">Admin Panel</span>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-gray-400 text-sm">{user.fullName}</span>
-            <button onClick={() => setScreen('settings')} className="text-gray-400 hover:text-white transition-colors" title="Account Settings">⚙</button>
-            <button onClick={logout} className="text-gray-400 hover:text-red-400 transition-colors" title="Sign out">⇥</button>
+          <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+            <span className="text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest hidden md:block">{user.fullName}</span>
+            <div className="flex items-center bg-slate-50 rounded-lg p-1 border border-slate-200">
+              <button onClick={() => setScreen('settings')} className="p-1.5 text-slate-500 hover:text-slate-900 transition-colors" title="Account Settings">
+                <span className="text-lg">⚙</span>
+              </button>
+              <div className="w-px h-4 bg-slate-200 mx-1"></div>
+              <button onClick={logout} className="p-1.5 text-slate-500 hover:text-red-600 transition-colors" title="Sign out">
+                <span className="text-lg">⇥</span>
+              </button>
+            </div>
           </div>
         </nav>
-        <main className="p-6">
+        <main className="p-4 sm:p-6">
           <AdminDashboard user={user} />
         </main>
       </div>
@@ -188,37 +195,40 @@ export default function App() {
   )
 
   return (
-    <div className="min-h-screen bg-[#0f1117]">
-      <nav className="bg-[#1a1d27] border-b border-[#2a2d3a] px-6 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-8">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-indigo-600 rounded-md flex items-center justify-center text-white text-xs font-bold">C</div>
-            <span className="text-white font-semibold text-sm">ConcernTrack</span>
+    <div className="min-h-screen bg-slate-50">
+      <nav className="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between sticky top-0 z-40 backdrop-blur-md shadow-sm">
+        <div className="flex items-center gap-4 sm:gap-8 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="w-7 h-7 bg-indigo-600 rounded-md flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-indigo-500/20">C</div>
+            <span className="text-slate-900 font-bold text-sm tracking-tight hidden xs:block">ConcernTrack</span>
           </div>
-          <div className="flex gap-1">
+          <div className="flex gap-1 flex-shrink-0">
             <button
               onClick={() => setActiveTab('submit')}
-              className={`px-4 py-2 text-sm transition-colors ${activeTab === 'submit' ? 'text-indigo-400 border-b-2 border-indigo-400' : 'text-gray-400 hover:text-white'}`}
-            >Submit Concern</button>
+              className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'submit' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-900'}`}
+            >Submit</button>
             <button
               onClick={() => setActiveTab('tracker')}
-              className={`px-4 py-2 text-sm transition-colors ${activeTab === 'tracker' ? 'text-indigo-400 border-b-2 border-indigo-400' : 'text-gray-400 hover:text-white'}`}
-            >Status Tracker</button>
+              className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold uppercase tracking-widest transition-all ${activeTab === 'tracker' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-slate-500 hover:text-slate-900'}`}
+            >Tracker</button>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="text-gray-400 text-sm">{user.fullName}</span>
-          <button onClick={() => setScreen('settings')} className="text-gray-400 hover:text-white transition-colors" title="Account Settings">
-            ⚙
-          </button>
-          <button onClick={logout} className="text-gray-400 hover:text-white transition-colors" title="Sign out">
-            ⇥
-          </button>
+        <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+          <span className="text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest hidden md:block">{user.fullName}</span>
+          <div className="flex items-center bg-slate-50 rounded-lg p-1 border border-slate-200">
+            <button onClick={() => setScreen('settings')} className="p-1.5 text-slate-500 hover:text-slate-900 transition-colors" title="Account Settings">
+              <span className="text-lg">⚙</span>
+            </button>
+            <div className="w-px h-4 bg-slate-200 mx-1"></div>
+            <button onClick={logout} className="p-1.5 text-slate-500 hover:text-red-600 transition-colors" title="Sign out">
+              <span className="text-lg">⇥</span>
+            </button>
+          </div>
         </div>
       </nav>
-      <main className="p-6">
+      <main className="p-4 sm:p-6">
         {activeTab === 'submit' && <SubmitConcernForm user={user} />}
-        {activeTab === 'tracker' && <StatusTracker />}
+        {activeTab === 'tracker' && <StatusTracker user={user} />}
       </main>
     </div>
   )

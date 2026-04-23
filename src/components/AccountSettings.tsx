@@ -132,120 +132,120 @@ export default function AccountSettings({ role, user, onBack, onUpdateProfile, o
   };
 
   return (
-    <div className="w-full bg-[#0f1117] min-h-screen p-6">
+    <div className="w-full bg-slate-50 min-h-screen p-6">
       <div className="max-w-2xl mx-auto">
         <button
           onClick={onBack}
-          className="text-gray-400 hover:text-white text-sm mb-6 flex items-center transition-colors"
+          className="text-slate-400 hover:text-slate-900 text-sm mb-6 flex items-center transition-colors font-bold"
         >
           &larr; Back
         </button>
 
-        <h1 className="text-[28px] font-bold text-white mb-8">Account Settings</h1>
+        <h1 className="text-[28px] font-bold text-slate-900 mb-8">Account Settings</h1>
 
         {/* Section 1 - Profile Information */}
-        <div className="bg-[#1a1d27] border border-[#2a2d3a] rounded-xl p-6 mb-4">
+        <div className="bg-white border border-slate-200 rounded-xl p-6 mb-4 shadow-sm">
           <div className="flex items-center mb-6">
-            <UserCircleIcon className="w-6 h-6 text-white mr-2" />
-            <h2 className="text-xl font-semibold text-white">Profile Information</h2>
+            <UserCircleIcon className="w-6 h-6 text-slate-900 mr-2" />
+            <h2 className="text-xl font-bold text-slate-900">Profile Information</h2>
           </div>
 
           <div className="space-y-4">
             {role === 'student' ? (
               <>
                 <div>
-                  <label className="block text-sm font-medium text-[#9ca3af] mb-1">Full name</label>
+                  <label className="block text-sm font-medium text-slate-500 mb-1">Full name</label>
                   <input
                     type="text"
                     value={studentProfile.fullName}
                     onChange={(e) => setStudentProfile({...studentProfile, fullName: e.target.value})}
                     disabled={profileLoading}
-                    className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 shadow-sm"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#9ca3af] mb-1">Program & Year</label>
+                  <label className="block text-sm font-medium text-slate-500 mb-1">Program & Year</label>
                   <input
                     type="text"
                     value={studentProfile.programYear}
                     onChange={(e) => setStudentProfile({...studentProfile, programYear: e.target.value})}
                     disabled={profileLoading}
-                    className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 shadow-sm"
                   />
-                  <p className="text-gray-500 text-xs mt-1">Update this when you move to a new year level or section</p>
+                  <p className="text-slate-400 text-xs mt-1 font-medium">Update this when you move to a new year level or section</p>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#9ca3af] mb-1">Section</label>
+                  <label className="block text-sm font-medium text-slate-500 mb-1">Section</label>
                   <input
                     type="text"
                     value={studentProfile.section}
                     onChange={(e) => setStudentProfile({...studentProfile, section: e.target.value})}
                     disabled={profileLoading}
-                    className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 shadow-sm"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#9ca3af] mb-1">Email address</label>
+                  <label className="block text-sm font-medium text-slate-500 mb-1">Email address</label>
                   <input
                     type="email"
                     value={studentProfile.email}
                     readOnly
-                    className="w-full bg-[#0f1117] opacity-50 cursor-not-allowed border border-[#2a2d3a] rounded-lg px-4 py-2 text-white focus:outline-none"
+                    className="w-full bg-slate-100 opacity-70 cursor-not-allowed border border-slate-200 rounded-lg px-4 py-2 text-slate-600 focus:outline-none"
                   />
-                  <p className="text-gray-500 text-xs mt-1">Email cannot be changed</p>
+                  <p className="text-slate-400 text-xs mt-1 font-medium">Email cannot be changed</p>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#9ca3af] mb-1">Student ID</label>
+                  <label className="block text-sm font-medium text-slate-500 mb-1">Student ID</label>
                   <input
                     type="text"
                     readOnly
                     value={studentProfile.studentId}
-                    className="w-full bg-[#0f1117] opacity-50 cursor-not-allowed border border-[#2a2d3a] rounded-lg px-4 py-2 text-white focus:outline-none"
+                    className="w-full bg-slate-100 opacity-70 cursor-not-allowed border border-slate-200 rounded-lg px-4 py-2 text-slate-600 focus:outline-none"
                   />
-                  <p className="text-gray-500 text-xs mt-1">Student ID cannot be changed</p>
+                  <p className="text-slate-400 text-xs mt-1 font-medium">Student ID cannot be changed</p>
                 </div>
               </>
             ) : (
               <>
                 <div>
-                  <label className="block text-sm font-medium text-[#9ca3af] mb-1">Full name</label>
+                  <label className="block text-sm font-medium text-slate-500 mb-1">Full name</label>
                   <input
                     type="text"
                     value={adminProfile.fullName}
                     onChange={(e) => setAdminProfile({...adminProfile, fullName: e.target.value})}
                     disabled={profileLoading}
-                    className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 shadow-sm"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#9ca3af] mb-1">Email address</label>
+                  <label className="block text-sm font-medium text-slate-500 mb-1">Email address</label>
                   <input
                     type="email"
                     value={adminProfile.email}
                     readOnly
-                    className="w-full bg-[#0f1117] opacity-50 cursor-not-allowed border border-[#2a2d3a] rounded-lg px-4 py-2 text-white focus:outline-none"
+                    className="w-full bg-slate-100 opacity-70 cursor-not-allowed border border-slate-200 rounded-lg px-4 py-2 text-slate-600 focus:outline-none"
                   />
-                  <p className="text-gray-500 text-xs mt-1">Email cannot be changed</p>
+                  <p className="text-slate-400 text-xs mt-1 font-medium">Email cannot be changed</p>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#9ca3af] mb-1">Department</label>
+                  <label className="block text-sm font-medium text-slate-500 mb-1">Department</label>
                   <input
                     type="text"
                     value={adminProfile.dept}
                     onChange={(e) => setAdminProfile({...adminProfile, dept: e.target.value})}
                     disabled={profileLoading}
-                    className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 shadow-sm"
                   />
-                  <p className="text-gray-500 text-xs mt-1">Update this if you are reassigned to a different department</p>
+                  <p className="text-slate-400 text-xs mt-1 font-medium">Update this if you are reassigned to a different department</p>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#9ca3af] mb-1">Job title</label>
+                  <label className="block text-sm font-medium text-slate-500 mb-1">Job title</label>
                   <input
                     type="text"
                     value={adminProfile.jobTitle}
                     onChange={(e) => setAdminProfile({...adminProfile, jobTitle: e.target.value})}
                     disabled={profileLoading}
-                    className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 shadow-sm"
                   />
                 </div>
               </>
@@ -255,7 +255,7 @@ export default function AccountSettings({ role, user, onBack, onUpdateProfile, o
               <button
                 onClick={handleProfileSave}
                 disabled={profileLoading}
-                className="px-6 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors disabled:opacity-50 flex items-center gap-2"
+                className="px-6 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold transition-all shadow-lg shadow-indigo-500/20 disabled:opacity-50 flex items-center gap-2"
               >
                 {profileLoading ? (
                   <><svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg> Saving...</>
@@ -266,41 +266,41 @@ export default function AccountSettings({ role, user, onBack, onUpdateProfile, o
         </div>
 
         {/* Section 2 - Security */}
-        <div className="bg-[#1a1d27] border border-[#2a2d3a] rounded-xl p-6 mb-4">
+        <div className="bg-white border border-slate-200 rounded-xl p-6 mb-4 shadow-sm">
           <div className="flex items-center mb-6">
-            <LockClosedIcon className="w-6 h-6 text-white mr-2" />
-            <h2 className="text-xl font-semibold text-white">Security</h2>
+            <LockClosedIcon className="w-6 h-6 text-slate-900 mr-2" />
+            <h2 className="text-xl font-bold text-slate-900">Security</h2>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-[#9ca3af] mb-1">Current password</label>
+              <label className="block text-sm font-medium text-slate-500 mb-1">Current password</label>
               <input
                 type="password"
                 placeholder="Enter current password"
                 value={passwords.current}
                 onChange={(e) => setPasswords({...passwords, current: e.target.value})}
                 disabled={passLoading}
-                className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 shadow-sm"
               />
-              {passErrors.current && <p className="text-red-400 text-xs mt-1">{passErrors.current}</p>}
+              {passErrors.current && <p className="text-red-500 text-xs mt-1 font-medium">{passErrors.current}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#9ca3af] mb-1">New password</label>
+              <label className="block text-sm font-medium text-slate-500 mb-1">New password</label>
               <input
                 type="password"
                 placeholder="Enter new password"
                 value={passwords.newPass}
                 onChange={(e) => setPasswords({...passwords, newPass: e.target.value})}
                 disabled={passLoading}
-                className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 shadow-sm"
               />
-              {passErrors.newPass && <p className="text-red-400 text-xs mt-1">{passErrors.newPass}</p>}
+              {passErrors.newPass && <p className="text-red-500 text-xs mt-1 font-medium">{passErrors.newPass}</p>}
 
               {passwords.newPass && (
                 <div className="mt-2 flex items-center gap-2">
-                  <div className="flex-1 h-1 bg-[#2a2d3a] rounded-full overflow-hidden">
+                  <div className="flex-1 h-1 bg-slate-100 rounded-full overflow-hidden">
                     <div className={`h-full transition-all duration-300 ${strength.fill}`}></div>
                   </div>
                   <span className={`text-xs font-medium ${strength.color}`}>{strength.label}</span>
@@ -309,23 +309,23 @@ export default function AccountSettings({ role, user, onBack, onUpdateProfile, o
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#9ca3af] mb-1">Confirm new password</label>
+              <label className="block text-sm font-medium text-slate-500 mb-1">Confirm new password</label>
               <input
                 type="password"
                 placeholder="Confirm new password"
                 value={passwords.confirm}
                 onChange={(e) => setPasswords({...passwords, confirm: e.target.value})}
                 disabled={passLoading}
-                className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 shadow-sm"
               />
-              {passErrors.confirm && <p className="text-red-400 text-xs mt-1">{passErrors.confirm}</p>}
+              {passErrors.confirm && <p className="text-red-500 text-xs mt-1 font-medium">{passErrors.confirm}</p>}
             </div>
 
             <div className="flex justify-end pt-4 mt-2">
               <button
                 onClick={handleSecuritySave}
                 disabled={passLoading}
-                className="px-6 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors disabled:opacity-50 flex items-center gap-2"
+                className="px-6 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold transition-all shadow-lg shadow-indigo-500/20 disabled:opacity-50 flex items-center gap-2"
               >
                 {passLoading ? (
                   <><svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg> Updating...</>

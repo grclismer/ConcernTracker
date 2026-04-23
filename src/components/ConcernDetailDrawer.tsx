@@ -1,5 +1,22 @@
 import { useState, useEffect } from 'react';
-import { XMarkIcon, CheckCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { 
+  XMarkIcon, 
+  ChevronRightIcon, 
+  PaperAirplaneIcon, 
+  SparklesIcon,
+  CheckCircleIcon,
+  ExclamationTriangleIcon,
+  UserIcon,
+  EnvelopeIcon,
+  BuildingOfficeIcon,
+  CalendarIcon,
+  TagIcon,
+  NoSymbolIcon,
+  ArrowPathIcon,
+  ChatBubbleLeftRightIcon,
+  PaperClipIcon
+} from '@heroicons/react/24/outline';
+import FileViewer from './FileViewer';
 import { useConcerns } from '../hooks/useConcerns';
 import type { Concern, ConcernStatus, AuditEntry } from '../hooks/useConcerns';
 import type { CurrentUser } from '../hooks/useAuth';
@@ -28,6 +45,8 @@ export default function ConcernDetailDrawer({ isOpen, onClose, concern, currentU
     setAiSuggesting(false);
     setAiError(null);
   }, [isOpen, concern?.id]);
+
+  const [showFile, setShowFile] = useState<string | null>(null);
 
   if (!isOpen || !concern) return null;
 
@@ -60,12 +79,8 @@ export default function ConcernDetailDrawer({ isOpen, onClose, concern, currentU
     if (!concern) return
 
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY?.trim()
-    if (!apiKey) {
-      setAiError('Gemini API key not found in .env file.')
-      return
-    }
-    if (apiKey === 'your_actual_key_here') {
-      setAiError('Please replace the placeholder in your .env file with your actual Gemini API key.')
+    if (!apiKey || apiKey === 'your_actual_key_here') {
+      setAiError('Gemini API key not found or is still using the placeholder in your .env file.')
       return
     }
 
@@ -215,11 +230,11 @@ IMPORTANT: Always write a COMPLETE response. Never cut off mid-sentence. Complet
 
   const getActionButtonStyle = (action: string) => {
     switch (action) {
-      case 'Read': return 'border-blue-500/30 text-blue-400 hover:bg-blue-500/10';
-      case 'Screened': return 'border-amber-500/30 text-amber-500 hover:bg-amber-500/10';
-      case 'Resolved': return 'border-green-500/30 text-green-500 hover:bg-green-500/10';
-      case 'Escalated': return 'border-red-500/30 text-red-400 hover:bg-red-500/10';
-      default: return 'border-[#2a2d3a] text-white hover:bg-[#2a2d3a]';
+      case 'Read': return 'border-blue-200 text-blue-600 bg-blue-50/50 hover:bg-blue-50 shadow-sm';
+      case 'Screened': return 'border-amber-200 text-amber-600 bg-amber-50/50 hover:bg-amber-50 shadow-sm';
+      case 'Resolved': return 'border-green-200 text-green-600 bg-green-50/50 hover:bg-green-50 shadow-sm';
+      case 'Escalated': return 'border-red-200 text-red-600 bg-red-50/50 hover:bg-red-50 shadow-sm';
+      default: return 'border-slate-200 text-slate-600 hover:bg-slate-50 shadow-sm';
     }
   };
 
@@ -231,22 +246,22 @@ IMPORTANT: Always write a COMPLETE response. Never cut off mid-sentence. Complet
       />
 
       <div
-        className={`fixed inset-y-0 right-0 w-full md:w-[480px] bg-[#1a1d27] border-l border-[#2a2d3a] shadow-2xl z-50 flex flex-col transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed inset-y-0 right-0 w-full md:w-[480px] bg-white border-l border-slate-200 shadow-2xl z-50 flex flex-col transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
 
         {/* Header */}
-        <div className="flex flex-col p-6 border-b border-[#2a2d3a] relative">
+        <div className="flex flex-col p-6 border-b border-slate-100 relative">
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 p-2 -mr-2 -mt-2 text-[#9ca3af] hover:text-white hover:bg-[#2a2d3a] rounded-lg transition-colors"
+            className="absolute top-6 right-6 p-2 -mr-2 -mt-2 text-slate-400 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
 
-          <span className="text-[#9ca3af] text-sm font-medium">{concern.concern_number}</span>
+          <span className="text-slate-400 text-sm font-bold tracking-widest">{concern.concern_number}</span>
           <div className="flex items-center gap-2 mt-1 pr-8">
-            <h2 className="text-xl font-bold text-white tracking-tight">{concern.title}</h2>
-            <span className="text-xs bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 px-2 py-0.5 rounded-full">
+            <h2 className="text-xl font-bold text-slate-900 tracking-tight">{concern.title}</h2>
+            <span className="text-xs bg-indigo-50 text-indigo-600 border border-indigo-100 px-2 py-0.5 rounded-full font-bold">
               ✨ AI-assisted
             </span>
           </div>
@@ -257,69 +272,95 @@ IMPORTANT: Always write a COMPLETE response. Never cut off mid-sentence. Complet
 
           {/* Status/Success Messages */}
           {statusUpdated && (
-            <div className="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
-              <CheckCircleIcon className="w-5 h-5 text-green-400" />
-              <p className="text-green-400 text-sm font-medium">Status updated to {statusUpdated}</p>
+            <div className="mb-6 p-4 bg-green-50 border border-green-100 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+              <CheckCircleIcon className="w-5 h-5 text-green-600" />
+              <p className="text-green-700 text-sm font-bold">Status updated to {statusUpdated}</p>
             </div>
           )}
 
           {localError && (
-            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start gap-3">
-              <ExclamationTriangleIcon className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-              <p className="text-red-400 text-sm">{localError}</p>
+            <div className="mb-6 p-4 bg-red-50 border border-red-100 rounded-xl flex items-start gap-3">
+              <ExclamationTriangleIcon className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+              <p className="text-red-700 text-sm">{localError}</p>
             </div>
           )}
 
           {/* Badges Row */}
           <div className="flex flex-wrap gap-2 mb-1">
-            <span className="px-2.5 py-1 text-xs font-bold rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 uppercase tracking-widest">{concern.category}</span>
-            <span className="px-2.5 py-1 text-xs font-bold rounded bg-gray-500/10 text-gray-400 border border-gray-500/20 uppercase tracking-widest">{concern.department}</span>
-            <span className={`px-2.5 py-1 text-xs font-bold rounded border flex items-center gap-1.5 uppercase tracking-widest ${isEscalated ? 'bg-red-500/10 text-red-500 border-red-500/20' :
-              isResolved ? 'bg-green-500/10 text-green-500 border-green-500/20' :
-                'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
+            <span className="px-2.5 py-1 text-xs font-bold rounded bg-blue-50 text-blue-600 border border-blue-100 uppercase tracking-widest">{concern.category}</span>
+            <span className="px-2.5 py-1 text-xs font-bold rounded bg-slate-50 text-slate-500 border border-slate-100 uppercase tracking-widest">{concern.department}</span>
+            <span className={`px-2.5 py-1 text-xs font-bold rounded border flex items-center gap-1.5 uppercase tracking-widest ${isEscalated ? 'bg-red-50 text-red-600 border-red-100' :
+              isResolved ? 'bg-green-50 text-green-600 border-green-100' :
+                'bg-indigo-50 text-indigo-600 border-indigo-100'
               }`}>
-              {(isEscalated || isResolved) && <span className={`w-1.5 h-1.5 rounded-full ${isEscalated ? 'bg-red-500' : 'bg-green-500'}`}></span>}
+              {(isEscalated || isResolved) && <span className={`w-1.5 h-1.5 rounded-full ${isEscalated ? 'bg-red-600' : 'bg-green-600'}`}></span>}
               {concern.status}
             </span>
           </div>
           {concern.sub_category && (
-            <p className="text-xs text-gray-500 mb-6 px-1">Type: {concern.sub_category}</p>
+            <p className="text-xs text-slate-400 mb-6 px-1 italic">Type: {concern.sub_category}</p>
           )}
 
           {/* SLA Banner */}
           {!isResolved && (
-            <div className={`mb-6 px-4 py-2 border rounded-lg text-sm font-bold ${slaDays > 5 ? 'bg-red-500/10 border-red-500/20 text-red-500' : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400'}`}>
+            <div className={`mb-6 px-4 py-2 border rounded-lg text-sm font-bold ${slaDays > 5 ? 'bg-red-50 border-red-100 text-red-600' : 'bg-indigo-50 border-indigo-100 text-indigo-600'}`}>
               Open for {slaDays} days · {slaDays > 5 ? 'SLA Breached' : 'Within SLA'}
             </div>
           )}
 
           {/* Description */}
           <div className="mb-6">
-            <h4 className="text-xs font-bold text-[#4b5563] uppercase tracking-wider mb-2">Description</h4>
-            <p className="text-[#9ca3af] text-sm leading-relaxed whitespace-pre-wrap">
+            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Description</h4>
+            <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-wrap">
               {concern.description}
             </p>
           </div>
 
           {/* Student Info */}
-          <div className="mb-6 pt-4 border-t border-[#2a2d3a]">
-            <p className="text-sm text-[#6b7280]">
-              Submitted by: <span className="text-[#9ca3af] font-medium">{concern.student_name} {concern.student_name !== 'Anonymous' && `(${concern.student_number})`}</span>
+          <div className="mb-6 pt-4 border-t border-slate-100">
+            <p className="text-sm text-slate-500">
+              Submitted by: <span className="text-slate-900 font-bold">{concern.student_name} {concern.student_name !== 'Anonymous' && `(${concern.student_number})`}</span>
             </p>
-            <p className="text-xs text-[#4b5563] mt-1 italic">
+            <p className="text-xs text-slate-400 mt-1 italic font-medium">
               Program: {concern.program}
             </p>
           </div>
 
-          <hr className="border-[#2a2d3a] my-6" />
+          {/* Attachments Section */}
+          {concern.file_url && (
+            <div className="mb-6">
+              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Attachments</h4>
+              <button 
+                onClick={() => setShowFile(concern.file_url!)}
+                className="w-full flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-300 group transition-all shadow-sm"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600 border border-indigo-100">
+                    <PaperClipIcon className="w-5 h-5" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm font-bold text-slate-900 truncate max-w-[200px]">
+                      {concern.file_url.split('/').pop()?.split('-').slice(1).join('-') || 'Attachment'}
+                    </p>
+                    <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest">Click to view file</p>
+                  </div>
+                </div>
+                <div className="w-8 h-8 bg-white border border-slate-100 rounded-full flex items-center justify-center text-slate-400 group-hover:text-indigo-600 group-hover:border-indigo-100 transition-all shadow-sm">
+                  <ChevronRightIcon className="w-4 h-4" />
+                </div>
+              </button>
+            </div>
+          )}
+
+          <hr className="border-slate-100 my-6" />
 
           {/* Status Actions */}
           <div className="mb-8">
-            <h4 className="text-sm font-semibold text-white mb-3">Update status:</h4>
+            <h4 className="text-sm font-bold text-slate-900 mb-3">Update status:</h4>
             {isResolved ? (
-              <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-xl flex items-center gap-2">
-                <CheckCircleIcon className="w-5 h-5 text-green-400" />
-                <p className="text-green-400 text-sm font-medium">This concern has been resolved.</p>
+              <div className="p-4 bg-green-50 border border-green-100 rounded-xl flex items-center gap-2">
+                <CheckCircleIcon className="w-5 h-5 text-green-600" />
+                <p className="text-green-700 text-sm font-bold">This concern has been resolved.</p>
               </div>
             ) : currentAvailableActions.length > 0 ? (
               <div className="grid grid-cols-2 gap-2">
@@ -335,7 +376,7 @@ IMPORTANT: Always write a COMPLETE response. Never cut off mid-sentence. Complet
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-sm italic">No further actions available.</p>
+              <p className="text-slate-400 text-sm italic font-medium">No further actions available.</p>
             )}
           </div>
 
@@ -344,14 +385,14 @@ IMPORTANT: Always write a COMPLETE response. Never cut off mid-sentence. Complet
             {/* Header row with label and AI button */}
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <label className="text-sm font-medium text-gray-300">
+                <label className="text-sm font-bold text-slate-600">
                   Add internal note
                 </label>
               </div>
               <button
                 onClick={suggestReply}
                 disabled={aiSuggesting || concern.status === 'Resolved'}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 border border-indigo-500/40 rounded-lg transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-200 rounded-lg transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed shadow-sm"
               >
                 {aiSuggesting ? (
                   <>
@@ -369,14 +410,14 @@ IMPORTANT: Always write a COMPLETE response. Never cut off mid-sentence. Complet
 
             {/* AI error */}
             {aiError && (
-              <div className="mb-2 text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
+              <div className="mb-2 text-xs text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2 font-medium">
                 {aiError}
               </div>
             )}
 
             {/* AI suggestion indicator */}
             {noteText && !aiSuggesting && (
-              <div className="mb-2 text-xs text-indigo-400 flex items-center gap-1">
+              <div className="mb-2 text-xs text-indigo-600 flex items-center gap-1 font-bold italic">
                 <span>✨</span>
                 <span>AI draft loaded — review and edit before submitting</span>
               </div>
@@ -388,7 +429,7 @@ IMPORTANT: Always write a COMPLETE response. Never cut off mid-sentence. Complet
               onChange={e => setNoteText(e.target.value)}
               placeholder="Add an internal note... or click ✨ Suggest Reply to generate an AI draft"
               rows={4}
-              className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500 resize-none transition-colors"
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 resize-none transition-colors shadow-sm"
             />
 
             {/* Add note button */}
@@ -401,25 +442,25 @@ IMPORTANT: Always write a COMPLETE response. Never cut off mid-sentence. Complet
             </button>
           </div>
 
-          <hr className="border-[#2a2d3a] my-8" />
+          <hr className="border-slate-100 my-8" />
 
           {/* Activity Timeline */}
           <div>
-            <h4 className="text-sm font-semibold text-[#9ca3af] uppercase tracking-wider mb-6">Activity Timeline</h4>
-            <div className="relative pl-5 space-y-8 before:absolute before:inset-y-1 before:left-[7px] before:w-px before:bg-[#2a2d3a]">
+            <h4 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-6">Activity Timeline</h4>
+            <div className="relative pl-5 space-y-8 before:absolute before:inset-y-1 before:left-[7px] before:w-px before:bg-slate-100">
 
               {concern.audit_trail?.slice().sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).map((entry: AuditEntry, idx: number) => {
                 const dotColor = getDotColor(entry.action);
 
                 return (
                   <div key={entry.id || idx} className="relative">
-                    <span className={`absolute -left-[25px] top-1.5 w-3 h-3 rounded-full border-[2px] border-[#1a1d27] ${dotColor}`}></span>
+                    <span className={`absolute -left-[25px] top-1.5 w-3 h-3 rounded-full border-[2px] border-white ${dotColor}`}></span>
 
                     <div className="flex flex-col ml-1">
-                      <h5 className="font-bold text-white text-[13px]">{entry.action}</h5>
-                      <div className="flex flex-col text-[#6b7280] text-[11px] mt-1 space-y-0.5 font-medium">
+                      <h5 className="font-bold text-slate-900 text-[13px]">{entry.action}</h5>
+                      <div className="flex flex-col text-slate-500 text-[11px] mt-1 space-y-0.5 font-medium">
                         <span>{format(new Date(entry.timestamp), 'MMM dd, yyyy · h:mm a').toUpperCase()} <span className="mx-1">·</span> {entry.actor}</span>
-                        {entry.note && <span className="italic text-[#4b5563]">"{entry.note}"</span>}
+                        {entry.note && <span className="italic text-slate-400">"{entry.note}"</span>}
                       </div>
                     </div>
                   </div>
@@ -431,6 +472,13 @@ IMPORTANT: Always write a COMPLETE response. Never cut off mid-sentence. Complet
         </div>
 
       </div>
+
+      {showFile && (
+        <FileViewer 
+          url={showFile} 
+          onClose={() => setShowFile(null)} 
+        />
+      )}
     </>
   );
 }

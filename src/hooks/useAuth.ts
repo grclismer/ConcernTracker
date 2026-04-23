@@ -33,12 +33,23 @@ export function useAuth() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // ── FIX 1: Skip profile loading if this is a password recovery redirect ──
+    // Supabase puts #access_token=...&type=recovery in the URL when user clicks reset link
+    // If we detect this, we stop here and let App.tsx show the ResetPassword component instead
+    const isRecovery = window.location.hash.includes('type=recovery')
+    if (isRecovery) { setLoading(false); return }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) loadUserProfile(session.user)
       else setLoading(false)
     })
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      // ── FIX 2: If Supabase fires a PASSWORD_RECOVERY event, do NOT load the user profile ──
+      // Loading the profile here would cause App.tsx to route to the dashboard
+      // and the ResetPassword component would never be shown
+      if (event === 'PASSWORD_RECOVERY') return
+
       if (session?.user) loadUserProfile(session.user)
       else { setUser(null); setLoading(false) }
     })
@@ -151,11 +162,11 @@ export function useAuth() {
     if (profileError) {
       console.error('Error fetching staff profile:', profileError);
       await supabase.auth.signOut();
-      
-      const errorMessage = profileError.code === 'PGRST116' 
-        ? 'Your account profile was not found in the database.' 
+
+      const errorMessage = profileError.code === 'PGRST116'
+        ? 'Your account profile was not found in the database.'
         : `Database Error (${profileError.code}): ${profileError.message}.`;
-        
+
       throw new Error(errorMessage);
     }
 
@@ -186,7 +197,7 @@ export function useAuth() {
       email: data.email,
       role: 'student'
     })
-    
+
     if (profileError) {
       console.error('Student profile insertion failed:', profileError);
       throw new Error(`Profile creation failed: ${profileError.message}`);
@@ -238,11 +249,11 @@ export function useAuth() {
 
     if (error) throw error
 
-    setUser(prev => prev ? { 
-      ...prev, 
-      fullName: data.fullName, 
-      program: data.program, 
-      yearLevel: data.yearLevel, 
+    setUser(prev => prev ? {
+      ...prev,
+      fullName: data.fullName,
+      program: data.program,
+      yearLevel: data.yearLevel,
       section: data.section,
       email: data.email
     } : null)
@@ -263,12 +274,12 @@ export function useAuth() {
 
     if (error) throw error
 
-    setUser(prev => prev ? { 
-      ...prev, 
-      fullName: data.fullName, 
-      email: data.email, 
-      department: data.department, 
-      jobTitle: data.jobTitle 
+    setUser(prev => prev ? {
+      ...prev,
+      fullName: data.fullName,
+      email: data.email,
+      department: data.department,
+      jobTitle: data.jobTitle
     } : null)
   }
 

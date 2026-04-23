@@ -65,39 +65,39 @@ export default function LoginPage({
     <div className="min-h-screen flex flex-col items-center justify-center p-4">
 
       {/* Dynamic Main Card */}
-      <div className="w-full max-w-2xl bg-[#1a1d27] border border-[#2a2d3a] rounded-xl shadow-2xl overflow-hidden mb-12 relative transition-all duration-300">
+      <div className="w-full max-w-2xl bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden mb-12 relative transition-all duration-300">
 
         {step === 'select' && (
           <div className="p-8 md:p-12 animate-in fade-in zoom-in-95 duration-300">
             <div className="text-center mb-10">
-              <h1 className="text-3xl font-bold tracking-tight text-white flex items-center justify-center gap-3 mb-4">
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 flex items-center justify-center gap-3 mb-4">
                 <span className="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center text-xl shadow-lg shadow-indigo-500/20">C</span>
                 ConcernTrack
               </h1>
-              <p className="text-[#9ca3af] text-lg">Who are you signing in as?</p>
+              <p className="text-slate-500 text-lg">Who are you signing in as?</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <button
                 onClick={() => { setStep('student'); resetState(); }}
-                className="bg-[#0f1117] border border-[#2a2d3a] rounded-xl p-8 text-left hover:border-indigo-500 hover:ring-1 hover:ring-indigo-500 transition-all group flex flex-col items-center text-center cursor-pointer"
+                className="bg-slate-50 border border-slate-200 rounded-xl p-8 text-left hover:border-indigo-500 hover:ring-1 hover:ring-indigo-500 transition-all group flex flex-col items-center text-center cursor-pointer"
               >
-                <div className="w-16 h-16 bg-[#1a1d27] rounded-full flex items-center justify-center mb-6 border border-[#2a2d3a] group-hover:bg-indigo-500/10 group-hover:border-indigo-500/30 transition-colors">
-                  <UserIcon className="w-8 h-8 text-[#9ca3af] group-hover:text-indigo-400 transition-colors" />
+                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-6 border border-slate-200 group-hover:bg-indigo-500/10 group-hover:border-indigo-500/30 transition-colors">
+                  <UserIcon className="w-8 h-8 text-slate-400 group-hover:text-indigo-600 transition-colors" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">Student</h3>
-                <p className="text-sm text-[#9ca3af] leading-relaxed">Submit and track your concerns.</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Student</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">Submit and track your concerns.</p>
               </button>
 
               <button
                 onClick={() => { setStep('admin'); resetState(); }}
-                className="bg-[#0f1117] border border-[#2a2d3a] rounded-xl p-8 text-left hover:border-amber-500 hover:ring-1 hover:ring-amber-500 transition-all group flex flex-col items-center text-center cursor-pointer"
+                className="bg-slate-50 border border-slate-200 rounded-xl p-8 text-left hover:border-amber-500 hover:ring-1 hover:ring-amber-500 transition-all group flex flex-col items-center text-center cursor-pointer"
               >
-                <div className="w-16 h-16 bg-[#1a1d27] rounded-full flex items-center justify-center mb-6 border border-[#2a2d3a] group-hover:bg-amber-500/10 group-hover:border-amber-500/30 transition-colors">
-                  <ShieldCheckIcon className="w-8 h-8 text-[#9ca3af] group-hover:text-amber-400 transition-colors" />
+                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-6 border border-slate-200 group-hover:bg-amber-500/10 group-hover:border-amber-500/30 transition-colors">
+                  <ShieldCheckIcon className="w-8 h-8 text-slate-400 group-hover:text-amber-600 transition-colors" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">Admin / Staff</h3>
-                <p className="text-sm text-[#9ca3af] leading-relaxed">Manage and resolve concerns.</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Admin / Staff</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">Manage and resolve concerns.</p>
               </button>
             </div>
           </div>
@@ -107,7 +107,7 @@ export default function LoginPage({
           <div className="p-8 md:p-12 animate-in slide-in-from-right-8 fade-in duration-300">
             <button
               onClick={() => { setStep('select'); resetState(); }}
-              className="absolute top-8 left-8 text-[#9ca3af] hover:text-white flex items-center text-sm font-medium transition-colors"
+              className="absolute top-8 left-8 text-slate-500 hover:text-slate-900 flex items-center text-sm font-medium transition-colors"
               disabled={loading}
             >
               <ArrowLeftIcon className="w-4 h-4 mr-2" />
@@ -115,15 +115,15 @@ export default function LoginPage({
             </button>
 
             <div className="flex flex-col items-center text-center mb-8 mt-2">
-              <div className="w-16 h-16 bg-[#0f1117] border border-[#2a2d3a] rounded-full flex items-center justify-center mb-4">
+              <div className="w-16 h-16 bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center mb-4">
                 {step === 'student' ? (
                   <UserIcon className="w-8 h-8 text-indigo-400" />
                 ) : (
                   <ShieldCheckIcon className="w-8 h-8 text-amber-400" />
                 )}
               </div>
-              <h2 className="text-2xl font-bold mb-2">{step === 'student' ? 'Student portal' : 'Admin & staff portal'}</h2>
-              <p className="text-[#9ca3af]">
+              <h2 className="text-2xl font-bold mb-2 text-slate-900">{step === 'student' ? 'Student portal' : 'Admin & staff portal'}</h2>
+              <p className="text-slate-500">
                 {step === 'student'
                   ? 'Submit concerns, track your requests, and receive updates.'
                   : 'Manage, route, and resolve student concerns from your department.'}
@@ -140,20 +140,20 @@ export default function LoginPage({
             <form className="space-y-4 max-w-sm mx-auto" onSubmit={step === 'student' ? handleStudentSubmit : handleAdminSubmit}>
               {step === 'student' ? (
                 <div>
-                  <label className="block text-sm font-medium text-[#9ca3af] mb-1">Student ID</label>
+                  <label className="block text-sm font-medium text-slate-600 mb-1">Student ID</label>
                   <input
                     type="text"
                     value={studentId}
                     onChange={(e) => setStudentId(e.target.value)}
-                    placeholder="e.g. 2023-07-00126"
+                    placeholder="e.g. 2023-07-00XXX"
                     disabled={loading}
                     required
-                    className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2.5 text-white placeholder-[#4b5563] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors disabled:opacity-50"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors disabled:opacity-50"
                   />
                 </div>
               ) : (
                 <div>
-                  <label className="block text-sm font-medium text-[#9ca3af] mb-1">Email address</label>
+                  <label className="block text-sm font-medium text-slate-600 mb-1">Email address</label>
                   <input
                     type="email"
                     value={email}
@@ -161,12 +161,12 @@ export default function LoginPage({
                     placeholder="staff@university.edu.ph"
                     disabled={loading}
                     required
-                    className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2.5 text-white placeholder-[#4b5563] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors disabled:opacity-50"
+                    className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors disabled:opacity-50"
                   />
                 </div>
               )}
               <div>
-                <label className="block text-sm font-medium text-[#9ca3af] mb-1">Password</label>
+                <label className="block text-sm font-medium text-slate-600 mb-1">Password</label>
                 <input
                   type="password"
                   value={password}
@@ -174,7 +174,7 @@ export default function LoginPage({
                   placeholder="••••••••"
                   disabled={loading}
                   required
-                  className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-lg px-4 py-2.5 text-white placeholder-[#4b5563] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors disabled:opacity-50"
+                  className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors disabled:opacity-50"
                 />
               </div>
               <button
@@ -207,7 +207,7 @@ export default function LoginPage({
               <button
                 onClick={() => onForgotPassword(step)}
                 disabled={loading}
-                className="text-sm text-[#9ca3af] hover:text-white transition-colors disabled:opacity-50"
+                className="text-sm text-slate-500 hover:text-slate-900 transition-colors disabled:opacity-50"
               >
                 Forgot your password? <span className="text-indigo-400 hover:text-indigo-300 font-medium">Reset it here</span>
               </button>
@@ -219,28 +219,28 @@ export default function LoginPage({
 
       {/* Feature Highlights Section */}
       <div className="w-full max-w-5xl">
-        <h3 className="text-xl font-semibold mb-6 text-center text-white">Why use ConcernTrack?</h3>
+        <h3 className="text-xl font-semibold mb-6 text-center text-slate-900">Why use ConcernTrack?</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-[#1a1d27] border border-[#2a2d3a] p-6 rounded-xl">
+          <div className="bg-white border border-slate-200 p-6 rounded-xl shadow-sm">
             <div className="flex items-center space-x-3 mb-3">
               <span className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-sm">✓</span>
-              <h4 className="font-medium text-white">Auto-routing</h4>
+              <h4 className="font-medium text-slate-900">Auto-routing</h4>
             </div>
-            <p className="text-sm text-[#9ca3af] leading-relaxed">Concerns go directly to the right department — no manual sorting.</p>
+            <p className="text-sm text-slate-500 leading-relaxed">Concerns go directly to the right department — no manual sorting.</p>
           </div>
-          <div className="bg-[#1a1d27] border border-[#2a2d3a] p-6 rounded-xl">
+          <div className="bg-white border border-slate-200 p-6 rounded-xl shadow-sm">
             <div className="flex items-center space-x-3 mb-3">
               <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm">⏱</span>
-              <h4 className="font-medium text-white">SLA enforcement</h4>
+              <h4 className="font-medium text-slate-900">SLA enforcement</h4>
             </div>
-            <p className="text-sm text-[#9ca3af] leading-relaxed">Automatic escalation if no action within 2 or 5 days.</p>
+            <p className="text-sm text-slate-500 leading-relaxed">Automatic escalation if no action within 2 or 5 days.</p>
           </div>
-          <div className="bg-[#1a1d27] border border-[#2a2d3a] p-6 rounded-xl">
+          <div className="bg-white border border-slate-200 p-6 rounded-xl shadow-sm">
             <div className="flex items-center space-x-3 mb-3">
               <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm">📋</span>
-              <h4 className="font-medium text-white">Full audit trail</h4>
+              <h4 className="font-medium text-slate-900">Full audit trail</h4>
             </div>
-            <p className="text-sm text-[#9ca3af] leading-relaxed">Every action timestamped and logged — complete transparency.</p>
+            <p className="text-sm text-slate-500 leading-relaxed">Every action timestamped and logged — complete transparency.</p>
           </div>
         </div>
       </div>

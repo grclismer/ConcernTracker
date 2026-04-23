@@ -323,9 +323,42 @@ export function useConcerns() {
     if (error) throw error
   }
 
+  /**
+   * uploadFile(file)
+   * This function uploads a file (image, PDF, or DOCX) to the Supabase storage bucket.
+   * It generates a unique filename using the current timestamp to prevent overwriting.
+   * After a successful upload, it returns the public URL of the file which is then
+   * saved in the concerns table.
+   */
+  const uploadFile = async (file: File): Promise<string> => {
+    setLoading(true)
+    try {
+      const fileExt = file.name.split('.').pop()
+      const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`
+      const filePath = `attachments/${fileName}`
+
+      const { error: uploadError } = await supabase.storage
+        .from('concern-attachments')
+        .upload(filePath, file)
+
+      if (uploadError) throw uploadError
+
+      const { data } = supabase.storage
+        .from('concern-attachments')
+        .getPublicUrl(filePath)
+
+      return data.publicUrl
+    } catch (err: any) {
+      setError(err.message)
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return {
     concerns, loading, error,
     fetchConcerns, fetchMyConcerns, fetchConcernById,
-    submitConcern, updateConcernStatus, addAuditNote
+    submitConcern, updateConcernStatus, addAuditNote, uploadFile
   }
 }

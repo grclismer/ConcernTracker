@@ -15,7 +15,7 @@ export default function ForgotPassword({ role, onBack }: ForgotPasswordProps) {
 
   const handleSendResetLink = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email.trim() || !email.includes('@')) {
       setError('Please enter a valid email address.');
       return;
@@ -46,7 +46,7 @@ export default function ForgotPassword({ role, onBack }: ForgotPasswordProps) {
        * - Their password is updated in Supabase auth
        */
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: 'http://localhost:5174/reset-password'
+        redirectTo: `${window.location.origin}/reset-password`
       });
 
       if (error) throw error;
@@ -62,21 +62,21 @@ export default function ForgotPassword({ role, onBack }: ForgotPasswordProps) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[#0f1117]">
-      <div className="w-full max-w-md bg-[#1a1d27] border border-[#2a2d3a] rounded-xl shadow-2xl p-8 relative overflow-hidden">
-        
+    <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-xl shadow-2xl p-8 relative overflow-hidden">
+
         {!success ? (
           <form onSubmit={handleSendResetLink} className="space-y-6">
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-white mb-2">Forgot your password?</h2>
-              <p className="text-[#9ca3af] text-sm">
+              <h2 className="text-2xl font-bold text-slate-900 mb-2">Forgot your password?</h2>
+              <p className="text-slate-500 text-sm">
                 Enter your registered email address and we'll send you a link to reset your password.
               </p>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-[#9ca3af] mb-1">Email address</label>
+                <label className="block text-sm font-medium text-slate-500 mb-1">Email address</label>
                 <input
                   type="email"
                   value={email}
@@ -86,7 +86,7 @@ export default function ForgotPassword({ role, onBack }: ForgotPasswordProps) {
                   }}
                   placeholder="your@email.com"
                   disabled={loading}
-                  className={`w-full bg-[#0f1117] border ${error ? 'border-red-400' : 'border-[#2a2d3a]'} rounded-lg px-4 py-2.5 text-white placeholder-[#4b5563] focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 transition-all`}
+                  className={`w-full bg-slate-50 border ${error ? 'border-red-500' : 'border-slate-200'} rounded-lg px-4 py-2.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 transition-all shadow-sm`}
                 />
                 {error && (
                   <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
@@ -113,7 +113,7 @@ export default function ForgotPassword({ role, onBack }: ForgotPasswordProps) {
               <button
                 type="button"
                 onClick={onBack}
-                className="w-full text-sm text-[#9ca3af] hover:text-white transition-colors flex items-center justify-center gap-2"
+                className="w-full text-sm text-slate-500 hover:text-slate-900 transition-colors flex items-center justify-center gap-2"
               >
                 <ArrowLeftIcon className="w-4 h-4" /> Back to login
               </button>
@@ -122,25 +122,25 @@ export default function ForgotPassword({ role, onBack }: ForgotPasswordProps) {
         ) : (
           <div className="space-y-6 text-center">
             <div className="flex justify-center">
-              <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center">
-                <CheckCircleIcon className="w-8 h-8 text-green-400" />
+              <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center border border-green-100 shadow-sm">
+                <CheckCircleIcon className="w-8 h-8 text-green-600" />
               </div>
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold text-white mb-2">Check your email</h2>
-              <p className="text-[#9ca3af] text-sm">
-                We sent a password reset link to <span className="text-white font-medium">{email}</span>. Click the link in the email to reset your password.
+              <h2 className="text-2xl font-bold text-slate-900 mb-2">Check your email</h2>
+              <p className="text-slate-500 text-sm">
+                We sent a password reset link to <span className="text-slate-900 font-bold">{email}</span>. Click the link in the email to reset your password.
               </p>
             </div>
 
-            <p className="text-xs text-[#4b5563]">
+            <p className="text-xs text-slate-400 font-medium italic">
               The reset link will expire in 1 hour for security reasons.
             </p>
 
             <button
               onClick={onBack}
-              className="w-full py-2.5 bg-[#0f1117] border border-[#2a2d3a] hover:bg-[#2a2d3a] text-white rounded-lg font-medium transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 bg-slate-50 border border-slate-200 hover:bg-slate-100 text-slate-900 rounded-lg font-bold transition-all flex items-center justify-center gap-2 shadow-sm"
             >
               <ArrowLeftIcon className="w-4 h-4" /> Back to login
             </button>

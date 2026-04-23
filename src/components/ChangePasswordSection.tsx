@@ -34,7 +34,7 @@ export default function ChangePasswordSection({ onUpdatePassword, onSuccess, onE
     if (strength === 1) return 'bg-red-500'
     if (strength === 2) return 'bg-amber-500'
     if (strength === 3) return 'bg-green-500'
-    return 'bg-gray-700'
+    return 'bg-slate-200'
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -70,43 +70,43 @@ export default function ChangePasswordSection({ onUpdatePassword, onSuccess, onE
   }
 
   return (
-    <div className="bg-[#1a1d27] border border-[#2a2d3a] rounded-2xl p-6 shadow-sm">
+    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-400">
+        <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 border border-indigo-100">
           <span className="text-xl">🔒</span>
         </div>
-        <h3 className="text-lg font-bold text-white">Security</h3>
+        <h3 className="text-lg font-bold text-slate-900">Security</h3>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Current password</label>
+          <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Current password</label>
           <input
             type="password"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
             placeholder="Enter current password"
-            className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-sm"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">New password</label>
+          <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">New password</label>
           <input
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             placeholder="Enter new password"
-            className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-sm"
           />
           
           {/* Password Strength Indicator */}
           {newPassword && (
             <div className="mt-3">
               <div className="flex justify-between items-center mb-1.5">
-                <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Strength: {getStrengthLabel()}</span>
+                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Strength: {getStrengthLabel()}</span>
               </div>
-              <div className="h-1.5 w-full bg-gray-800 rounded-full overflow-hidden flex gap-1">
+              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex gap-1">
                 <div className={`h-full transition-all duration-500 ${strength >= 1 ? getStrengthColor() : 'bg-transparent'} flex-1`}></div>
                 <div className={`h-full transition-all duration-500 ${strength >= 2 ? getStrengthColor() : 'bg-transparent'} flex-1`}></div>
                 <div className={`h-full transition-all duration-500 ${strength >= 3 ? getStrengthColor() : 'bg-transparent'} flex-1`}></div>
@@ -116,13 +116,13 @@ export default function ChangePasswordSection({ onUpdatePassword, onSuccess, onE
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Confirm new password</label>
+          <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Confirm new password</label>
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm new password"
-            className="w-full bg-[#0f1117] border border-[#2a2d3a] rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-sm"
           />
         </div>
 
